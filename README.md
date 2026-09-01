@@ -70,6 +70,15 @@ Shortcut will always fetch.
    picker) → set its input to the output of the previous step ("Contents
    of URL"). Choose whether to apply it to Lock Screen, Home Screen, or
    both, and turn **off** "Show Preview" so it applies silently.
+   - Optionally toggle **"Perspective Zoom"** on for a subtle parallax/tilt
+     effect. Note: there's a long-standing Shortcuts bug where Perspective
+     Zoom can silently disable itself after the first automated run,
+     leaving the image statically zoomed in ~12–15%. If you notice the
+     grid looking cropped after a day or two, that's this bug — either
+     turn Perspective Zoom back off, or just live with it (the design's
+     safe margins in `config.json` — `layout.topSafeArea` /
+     `bottomSafeArea` — are already sized generously to survive that zoom
+     without cutting off the grid).
 4. Name the shortcut, e.g. **"Update Tracker Wallpaper"**.
 5. Run it once manually to confirm it downloads and sets the image.
 
@@ -116,9 +125,13 @@ Edit [config.json](config.json):
 | `startDate` | Day 1 of the tracker (`YYYY-MM-DD`) |
 | `totalDays` | Total dots / days to track (default 100) |
 | `grid.cols` / `grid.rows` | Grid dimensions (default 10×10) |
-| `colors.*` | Background / filled / unfilled dot colors |
-| `dot.diameter`, `dot.gapX`, `dot.gapY` | Dot size and spacing — grid auto-centers |
-| `showDayCounterText` | Set `true` to show "Day N / 100" text below the grid |
+| `colors.backgroundTop` / `backgroundBottom` | Vertical gradient background |
+| `colors.dotFilled*` / `dotUnfilled*` / `todayRingColor` | Cell colors, glow, and today-highlight |
+| `colors.shadowColor` / `shadowOpacity` / `highlightOpacity` / `unfilledRecessOpacity` | Depth shading — cast shadow, top-edge highlight, recessed look for empty cells |
+| `cell.size`, `cell.gapX` / `gapY`, `cell.cornerRadius` | Cell size and spacing — grid auto-centers |
+| `cell.depth`, `cell.lightAngleDeg` | How strong the raised/3D depth effect is, and the light direction it's shaded from |
+| `layout.topSafeArea` / `bottomSafeArea` | Clearance kept at top/bottom (kept generous to survive iOS Perspective Zoom's auto-crop — see setup section above) |
+| `text.showHeader` / `showDayCounter` / `showDateRange` / `showPercentage` / `showProgressBar` | All off by default (pure dot grid); flip any to `true` to add that text/element back |
 
 After editing, commit and push — tomorrow's run picks up the new config
 automatically. To regenerate immediately, re-run the workflow manually

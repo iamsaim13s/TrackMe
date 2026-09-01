@@ -32,23 +32,30 @@
     "progressTrackOpacity": 0.12,
     "progressFillColor": "#7DD3FC",
 
-    "noiseOpacity": 0.035
+    "noiseOpacity": 0.035,
+
+    "shadowColor": "#000000",
+    "shadowOpacity": 0.55,
+    "highlightOpacity": 0.9,
+    "unfilledRecessOpacity": 0.35
   },
 
   "cell": {
     "shape": "roundedSquare",
-    "size": 68,
-    "cornerRadius": 16,
-    "gapX": 20,
-    "gapY": 20,
+    "size": 58,
+    "cornerRadius": 14,
+    "gapX": 30,
+    "gapY": 30,
     "unfilledStrokeWidth": 2,
     "filledScale": 1.0,
-    "todayScale": 1.12
+    "todayScale": 1.12,
+    "depth": 10,
+    "lightAngleDeg": 60
   },
 
   "layout": {
-    "topSafeArea": 150,
-    "bottomSafeArea": 190,
+    "topSafeArea": 260,
+    "bottomSafeArea": 320,
     "headerGap": 44,
     "footerGap": 40,
     "progressBarHeight": 8,
@@ -56,14 +63,15 @@
   },
 
   "text": {
-    "showHeader": true,
+    "showHeader": false,
     "headerLabel": "100 DAY TRACKER",
-    "showDayCounter": true,
-    "showDateRange": true,
-    "showPercentage": true
+    "showDayCounter": false,
+    "showDateRange": false,
+    "showPercentage": false,
+    "showProgressBar": false
   },
 
-  "showDayCounterText": true,
+  "showDayCounterText": false,
 
   "timezone": "auto"
 }

@@ -130,7 +130,10 @@ function mulberry32(seed) {
 
 const { width, height } = config.canvas;
 const { cols, rows } = config.grid;
-const { size, cornerRadius, gapX, gapY, unfilledStrokeWidth, todayScale } = config.cell;
+const { size, cornerRadius, gapX, gapY, unfilledStrokeWidth, todayScale, depth, lightAngleDeg } = config.cell;
+const lightRad = ((lightAngleDeg ?? 60) * Math.PI) / 180;
+const lightDX = Math.cos(lightRad); // light-source direction; shadows fall opposite this
+const lightDY = Math.sin(lightRad);
 const layout = config.layout;
 const c = config.colors;
 const t = config.text;
@@ -184,9 +187,9 @@ const safeH = safeBottom - safeTop;
 // within the safe area, then vertically center the grid in what's left.
 const headerH = t.showHeader ? 40 : 0;
 const footerH = (t.showDayCounter || t.showDateRange || t.showPercentage ? 60 : 0) +
-  (layout.progressBarHeight + layout.footerGap);
+  (t.showProgressBar ? layout.progressBarHeight + layout.footerGap : 0);
 
-const contentH = headerH + (headerH ? layout.headerGap : 0) + gridH + layout.footerGap + footerH;
+const contentH = headerH + (headerH ? layout.headerGap : 0) + gridH + (footerH ? layout.footerGap : 0) + footerH;
 const contentTop = safeTop + Math.max(0, (safeH - contentH) / 2);
 
 const startX = (width - gridW) / 2;
@@ -238,8 +241,28 @@ for (let row = 0; row < rows; row++) {
     const drawY = cy - drawSize / 2;
     const drawRadius = cornerRadius * scale;
 
+    // Depth for a filled cell = it has "risen" off the surface (full shadow
+    // throw + glow + a bright top-edge highlight, like a lit, raised tile).
+    // An unfilled cell sits flush/recessed into the surface (a faint inset
+    // shadow along its light-facing edge, no cast shadow) — a single
+    // consistent light source ties both states into one spatial scene.
+    const cellDepth = isFilled ? depth * scale : depth * 0.28;
+
     if (isFilled) {
-      // Soft glow behind filled cells for a gentle luminous feel.
+      // 1) Soft ambient contact shadow cast opposite the light direction —
+      //    the primary cue that this tile floats above the background.
+      ctx.save();
+      ctx.shadowColor = hexToRgba(c.shadowColor, c.shadowOpacity);
+      ctx.shadowBlur = cellDepth * 2.6;
+      ctx.shadowOffsetX = lightDX * cellDepth;
+      ctx.shadowOffsetY = lightDY * cellDepth;
+      roundedRectPath(ctx, drawX, drawY, drawSize, drawSize, drawRadius);
+      ctx.fillStyle = c.dotFilled;
+      ctx.fill();
+      ctx.restore();
+
+      // 2) Colored ambient glow (unchanged from before), layered on top so
+      //    the tile also reads as luminous, not just physically raised.
       ctx.save();
       ctx.shadowColor = hexToRgba(c.dotFilledGlow, c.dotFilledGlowOpacity);
       ctx.shadowBlur = 18;
@@ -247,11 +270,44 @@ for (let row = 0; row < rows; row++) {
       ctx.fillStyle = c.dotFilled;
       ctx.fill();
       ctx.restore();
+
+      // 3) Top-edge highlight stroke on the side facing the light — a thin
+      //    bevel that sells the tile as a solid 3D surface, not a flat fill.
+      ctx.save();
+      roundedRectPath(ctx, drawX, drawY, drawSize, drawSize, drawRadius);
+      ctx.clip();
+      const hlGrad = ctx.createLinearGradient(
+        drawX - lightDX * drawSize, drawY - lightDY * drawSize,
+        drawX + lightDX * drawSize, drawY + lightDY * drawSize
+      );
+      hlGrad.addColorStop(0, hexToRgba('#FFFFFF', c.highlightOpacity * 0.5));
+      hlGrad.addColorStop(0.35, 'rgba(255,255,255,0)');
+      ctx.fillStyle = hlGrad;
+      ctx.fillRect(drawX, drawY, drawSize, drawSize);
+      ctx.restore();
     } else {
+      // Recessed / not-yet cell: darker inset fill plus a faint inner shadow
+      // on the light-facing edge, so it reads as a shallow carved-in socket
+      // rather than a flat outline — depth without visual weight.
       roundedRectPath(ctx, drawX, drawY, drawSize, drawSize, drawRadius);
       ctx.fillStyle = hexToRgba(c.dotUnfilledFill, c.dotUnfilledFillOpacity);
       ctx.fill();
+
+      ctx.save();
+      roundedRectPath(ctx, drawX, drawY, drawSize, drawSize, drawRadius);
+      ctx.clip();
+      const insetGrad = ctx.createLinearGradient(
+        drawX - lightDX * drawSize, drawY - lightDY * drawSize,
+        drawX + lightDX * drawSize, drawY + lightDY * drawSize
+      );
+      insetGrad.addColorStop(0, hexToRgba(c.shadowColor, c.unfilledRecessOpacity));
+      insetGrad.addColorStop(0.3, 'rgba(0,0,0,0)');
+      ctx.fillStyle = insetGrad;
+      ctx.fillRect(drawX, drawY, drawSize, drawSize);
+      ctx.restore();
+
       ctx.lineWidth = unfilledStrokeWidth;
+      roundedRectPath(ctx, drawX, drawY, drawSize, drawSize, drawRadius);
       ctx.strokeStyle = hexToRgba(c.dotUnfilledStroke, c.dotUnfilledStrokeOpacity);
       ctx.stroke();
     }
@@ -287,24 +343,26 @@ const barX = width / 2 - barW / 2;
 const barY = gridBottom + layout.footerGap;
 const barH = layout.progressBarHeight;
 
-roundedRectPath(ctx, barX, barY, barW, barH, barH / 2);
-ctx.fillStyle = hexToRgba(c.progressTrackColor, c.progressTrackOpacity);
-ctx.fill();
-
-if (percent > 0) {
-  const fillW = Math.max(barH, barW * percent);
-  roundedRectPath(ctx, barX, barY, fillW, barH, barH / 2);
-  ctx.save();
-  ctx.shadowColor = hexToRgba(c.accent, 0.6);
-  ctx.shadowBlur = 12;
-  ctx.fillStyle = c.progressFillColor;
+if (t.showProgressBar) {
+  roundedRectPath(ctx, barX, barY, barW, barH, barH / 2);
+  ctx.fillStyle = hexToRgba(c.progressTrackColor, c.progressTrackOpacity);
   ctx.fill();
-  ctx.restore();
+
+  if (percent > 0) {
+    const fillW = Math.max(barH, barW * percent);
+    roundedRectPath(ctx, barX, barY, fillW, barH, barH / 2);
+    ctx.save();
+    ctx.shadowColor = hexToRgba(c.accent, 0.6);
+    ctx.shadowBlur = 12;
+    ctx.fillStyle = c.progressFillColor;
+    ctx.fill();
+    ctx.restore();
+  }
 }
 
 // ---- Footer text: day counter / date range / percentage -------------------
 
-let footerY = barY + barH + 26;
+let footerY = t.showProgressBar ? barY + barH + 26 : gridBottom + layout.footerGap;
 
 if (t.showDayCounter) {
   ctx.fillStyle = hexToRgba(c.textColor, c.textPrimaryOpacity);
