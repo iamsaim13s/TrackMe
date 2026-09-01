@@ -59,7 +59,8 @@
     "headerGap": 44,
     "footerGap": 40,
     "progressBarHeight": 8,
-    "progressBarWidthRatio": 0.78
+    "progressBarWidthRatio": 0.78,
+    "verticalOffset": 633
   },
 
   "text": {

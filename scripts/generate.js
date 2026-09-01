@@ -190,7 +190,11 @@ const footerH = (t.showDayCounter || t.showDateRange || t.showPercentage ? 60 : 
   (t.showProgressBar ? layout.progressBarHeight + layout.footerGap : 0);
 
 const contentH = headerH + (headerH ? layout.headerGap : 0) + gridH + (footerH ? layout.footerGap : 0) + footerH;
-const contentTop = safeTop + Math.max(0, (safeH - contentH) / 2);
+const centeredTop = safeTop + Math.max(0, (safeH - contentH) / 2);
+// Shift the whole content block down from center by `verticalOffset` px,
+// clamped so it never pushes past the bottom safe area.
+const maxTop = safeBottom - contentH;
+const contentTop = Math.min(centeredTop + (layout.verticalOffset ?? 0), Math.max(safeTop, maxTop));
 
 const startX = (width - gridW) / 2;
 let cursorY = contentTop;
