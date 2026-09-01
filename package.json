@@ -1,0 +1,13 @@
+{
+  "name": "100-day-tracker",
+  "version": "1.0.0",
+  "description": "Generates a daily iPhone 12 Pro wallpaper with a 100-day dot tracker that fills in one dot per day.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "generate": "node scripts/generate.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^0.1.53"
+  }
+}

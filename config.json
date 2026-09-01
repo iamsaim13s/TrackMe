@@ -1,0 +1,27 @@
+{
+  "startDate": "2026-09-01",
+  "totalDays": 100,
+  "grid": { "cols": 10, "rows": 10 },
+
+  "canvas": { "width": 1170, "height": 2532 },
+
+  "colors": {
+    "background": "#000000",
+    "dotFilled": "#FFFFFF",
+    "dotUnfilledStroke": "#FFFFFF",
+    "dotUnfilledStrokeOpacity": 0.35,
+    "textColor": "#FFFFFF",
+    "textOpacity": 0.55
+  },
+
+  "dot": {
+    "diameter": 50,
+    "gapX": 40,
+    "gapY": 56,
+    "unfilledStrokeWidth": 2.5
+  },
+
+  "showDayCounterText": false,
+
+  "timezone": "auto"
+}
