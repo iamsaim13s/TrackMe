@@ -2,11 +2,10 @@ name: Generate daily wallpaper
 
 on:
   schedule:
-    # Runs at 06:00 UTC every day. Adjust to whenever your "new day" should
-    # roll over — e.g. shortly after your local midnight. UTC 06:00 is
-    # ~01:00-02:00 US Eastern, ~22:00-23:00 US Pacific (previous day), etc.
-    # Tune the cron for your own timezone (GitHub Actions cron is UTC only).
-    - cron: '0 6 * * *'
+    # Runs at 00:00 UTC every day = 5:00 AM Pakistan Standard Time (UTC+5,
+    # no DST). Adjust if you change timezone (GitHub Actions cron is UTC
+    # only, so always convert your desired local time to UTC).
+    - cron: '0 0 * * *'
   workflow_dispatch: {} # allows manual "Run workflow" trigger from the Actions tab
 
 permissions:
