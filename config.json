@@ -6,22 +6,64 @@
   "canvas": { "width": 1170, "height": 2532 },
 
   "colors": {
-    "background": "#000000",
+    "backgroundTop": "#0B1020",
+    "backgroundBottom": "#04060C",
+    "vignetteOpacity": 0.55,
+
     "dotFilled": "#FFFFFF",
+    "dotFilledGlow": "#7DD3FC",
+    "dotFilledGlowOpacity": 0.55,
+
+    "dotUnfilledFill": "#FFFFFF",
+    "dotUnfilledFillOpacity": 0.06,
     "dotUnfilledStroke": "#FFFFFF",
-    "dotUnfilledStrokeOpacity": 0.35,
+    "dotUnfilledStrokeOpacity": 0.22,
+
+    "todayRingColor": "#7DD3FC",
+    "todayRingOpacity": 0.9,
+
+    "accent": "#7DD3FC",
+
     "textColor": "#FFFFFF",
-    "textOpacity": 0.55
+    "textPrimaryOpacity": 0.92,
+    "textSecondaryOpacity": 0.5,
+
+    "progressTrackColor": "#FFFFFF",
+    "progressTrackOpacity": 0.12,
+    "progressFillColor": "#7DD3FC",
+
+    "noiseOpacity": 0.035
   },
 
-  "dot": {
-    "diameter": 50,
-    "gapX": 40,
-    "gapY": 56,
-    "unfilledStrokeWidth": 2.5
+  "cell": {
+    "shape": "roundedSquare",
+    "size": 68,
+    "cornerRadius": 16,
+    "gapX": 20,
+    "gapY": 20,
+    "unfilledStrokeWidth": 2,
+    "filledScale": 1.0,
+    "todayScale": 1.12
   },
 
-  "showDayCounterText": false,
+  "layout": {
+    "topSafeArea": 150,
+    "bottomSafeArea": 190,
+    "headerGap": 44,
+    "footerGap": 40,
+    "progressBarHeight": 8,
+    "progressBarWidthRatio": 0.78
+  },
+
+  "text": {
+    "showHeader": true,
+    "headerLabel": "100 DAY TRACKER",
+    "showDayCounter": true,
+    "showDateRange": true,
+    "showPercentage": true
+  },
+
+  "showDayCounterText": true,
 
   "timezone": "auto"
 }
