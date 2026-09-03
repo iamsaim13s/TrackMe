@@ -1,78 +1,162 @@
 {
-  "startDate": "2026-09-01",
-  "totalDays": 100,
-  "grid": { "cols": 10, "rows": 10 },
+  "trackers": [
+    {
+      "id": "main",
+      "outputName": "wallpaper",
+      "startDate": "2026-09-01",
+      "totalDays": 100,
+      "grid": { "cols": 10, "rows": 10 },
 
-  "canvas": { "width": 1170, "height": 2532 },
+      "canvas": { "width": 1170, "height": 2532 },
 
-  "colors": {
-    "backgroundTop": "#0B1020",
-    "backgroundBottom": "#04060C",
-    "vignetteOpacity": 0.55,
+      "colors": {
+        "backgroundTop": "#0B1020",
+        "backgroundBottom": "#04060C",
+        "vignetteOpacity": 0.55,
 
-    "dotFilled": "#FFFFFF",
-    "dotFilledGlow": "#7DD3FC",
-    "dotFilledGlowOpacity": 0.55,
+        "dotFilled": "#FFFFFF",
+        "dotFilledGlow": "#7DD3FC",
+        "dotFilledGlowOpacity": 0.55,
 
-    "dotUnfilledFill": "#FFFFFF",
-    "dotUnfilledFillOpacity": 0.06,
-    "dotUnfilledStroke": "#FFFFFF",
-    "dotUnfilledStrokeOpacity": 0.22,
+        "dotUnfilledFill": "#FFFFFF",
+        "dotUnfilledFillOpacity": 0.06,
+        "dotUnfilledStroke": "#FFFFFF",
+        "dotUnfilledStrokeOpacity": 0.22,
 
-    "todayRingColor": "#7DD3FC",
-    "todayRingOpacity": 0.9,
+        "todayRingColor": "#7DD3FC",
+        "todayRingOpacity": 0.9,
 
-    "accent": "#7DD3FC",
+        "accent": "#7DD3FC",
 
-    "textColor": "#FFFFFF",
-    "textPrimaryOpacity": 0.92,
-    "textSecondaryOpacity": 0.5,
+        "textColor": "#FFFFFF",
+        "textPrimaryOpacity": 0.92,
+        "textSecondaryOpacity": 0.5,
 
-    "progressTrackColor": "#FFFFFF",
-    "progressTrackOpacity": 0.12,
-    "progressFillColor": "#7DD3FC",
+        "progressTrackColor": "#FFFFFF",
+        "progressTrackOpacity": 0.12,
+        "progressFillColor": "#7DD3FC",
 
-    "noiseOpacity": 0.035,
+        "noiseOpacity": 0.035,
 
-    "shadowColor": "#000000",
-    "shadowOpacity": 0.55,
-    "highlightOpacity": 0.9,
-    "unfilledRecessOpacity": 0.35
-  },
+        "shadowColor": "#000000",
+        "shadowOpacity": 0.55,
+        "highlightOpacity": 0.9,
+        "unfilledRecessOpacity": 0.35
+      },
 
-  "cell": {
-    "shape": "roundedSquare",
-    "size": 58,
-    "cornerRadius": 14,
-    "gapX": 30,
-    "gapY": 30,
-    "unfilledStrokeWidth": 2,
-    "filledScale": 1.0,
-    "todayScale": 1.12,
-    "depth": 10,
-    "lightAngleDeg": 60
-  },
+      "cell": {
+        "shape": "roundedSquare",
+        "size": 58,
+        "cornerRadius": 14,
+        "gapX": 30,
+        "gapY": 30,
+        "unfilledStrokeWidth": 2,
+        "filledScale": 1.0,
+        "todayScale": 1.12,
+        "depth": 10,
+        "lightAngleDeg": 60
+      },
 
-  "layout": {
-    "topSafeArea": 260,
-    "bottomSafeArea": 320,
-    "headerGap": 44,
-    "footerGap": 40,
-    "progressBarHeight": 8,
-    "progressBarWidthRatio": 0.78,
-    "verticalOffset": 303
-  },
+      "layout": {
+        "topSafeArea": 260,
+        "bottomSafeArea": 320,
+        "headerGap": 44,
+        "footerGap": 40,
+        "progressBarHeight": 8,
+        "progressBarWidthRatio": 0.78,
+        "verticalOffset": 303
+      },
 
-  "text": {
-    "showHeader": false,
-    "headerLabel": "100 DAY TRACKER",
-    "showDayCounter": false,
-    "showDateRange": false,
-    "showPercentage": false,
-    "showProgressBar": false
-  },
+      "text": {
+        "showHeader": false,
+        "headerLabel": "100 DAY TRACKER",
+        "showDayCounter": false,
+        "showDateRange": false,
+        "showPercentage": false,
+        "showProgressBar": false
+      },
 
-  "showDayCounterText": false,
+      "showDayCounterText": false,
+      "timezone": "auto"
+    },
+    {
+      "id": "a",
+      "outputName": "wallpaper-a",
+      "startDate": "2026-09-01",
+      "totalDays": 100,
+      "grid": { "cols": 10, "rows": 10 },
 
-  "timezone": "auto"
+      "canvas": { "width": 750, "height": 1334 },
+
+      "colors": {
+        "backgroundTop": "#140B20",
+        "backgroundBottom": "#04040C",
+        "vignetteOpacity": 0.55,
+
+        "dotFilled": "#FFFFFF",
+        "dotFilledGlow": "#C084FC",
+        "dotFilledGlowOpacity": 0.55,
+
+        "dotUnfilledFill": "#FFFFFF",
+        "dotUnfilledFillOpacity": 0.06,
+        "dotUnfilledStroke": "#FFFFFF",
+        "dotUnfilledStrokeOpacity": 0.22,
+
+        "todayRingColor": "#C084FC",
+        "todayRingOpacity": 0.9,
+
+        "accent": "#C084FC",
+
+        "textColor": "#FFFFFF",
+        "textPrimaryOpacity": 0.92,
+        "textSecondaryOpacity": 0.5,
+
+        "progressTrackColor": "#FFFFFF",
+        "progressTrackOpacity": 0.12,
+        "progressFillColor": "#C084FC",
+
+        "noiseOpacity": 0.035,
+
+        "shadowColor": "#000000",
+        "shadowOpacity": 0.55,
+        "highlightOpacity": 0.9,
+        "unfilledRecessOpacity": 0.35
+      },
+
+      "cell": {
+        "shape": "roundedSquare",
+        "size": 37,
+        "cornerRadius": 9,
+        "gapX": 19,
+        "gapY": 19,
+        "unfilledStrokeWidth": 1.5,
+        "filledScale": 1.0,
+        "todayScale": 1.12,
+        "depth": 6,
+        "lightAngleDeg": 60
+      },
+
+      "layout": {
+        "topSafeArea": 137,
+        "bottomSafeArea": 169,
+        "headerGap": 28,
+        "footerGap": 26,
+        "progressBarHeight": 5,
+        "progressBarWidthRatio": 0.78,
+        "verticalOffset": 160
+      },
+
+      "text": {
+        "showHeader": false,
+        "headerLabel": "100 DAY TRACKER",
+        "showDayCounter": false,
+        "showDateRange": false,
+        "showPercentage": false,
+        "showProgressBar": false
+      },
+
+      "showDayCounterText": false,
+      "timezone": "auto"
+    }
+  ]
 }

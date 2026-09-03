@@ -1,0 +1,10 @@
+{
+  "id": "a",
+  "startDate": "2026-09-01",
+  "today": "2026-09-03",
+  "dayNumber": 3,
+  "totalDays": 100,
+  "filledDots": 3,
+  "complete": false,
+  "generatedAt": "2026-09-03T12:00:04.273Z"
+}
